@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- 
+  Rui Santos
+  Complete project details at https://RandomNerdTutorials.com  
+-->
+<html>
+<head>
+  <title>ESP8266 Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>ESP8266 Web Server</h1>
+  <p>
+    <a href="/calibrate"><button class="button">CALIBRATE</button></a>
+  </p>
+  <p>
+    <span class="sensor-labels">Altitude</span>
+    <span id="altitude">%ALTITUDE%</span>
+    <sup class="units">m;</sup>
+  </p>
+  <p>
+    <span class="sensor-labels">Max Altitude</span>
+    <span id="altitude_max">%ALTITUDE_MAX%</span>
+    <sup class="units">m;</sup>
+  </p>
+</body>
+<script>
+  setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("altitude").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "/altitude", true);
+    xhttp.send();
+  }, 200 ) ;
+
+  setInterval(function ( ) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("altitude_max").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "/altitude_max", true);
+    xhttp.send();
+  }, 200 ) ;
+</script>
+</html>
